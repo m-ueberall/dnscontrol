@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted, ${{ matrix.arch }}
+    runs-on: [self-hosted, x64]
     strategy:
       matrix:
         arch: [x64, ARM64]
