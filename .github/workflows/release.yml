@@ -64,7 +64,7 @@ jobs:
         asset_name: dnscontrol-Darwin
         asset_content_type: application/octet-stream
 
-    - name: Upload dnscontrol-Linux
+    - name: Upload dnscontrol-Linux (x86_64)
       if: ${{ matrix.arch != 'ARM64' }}
       uses: actions/upload-release-asset@v1
       env:
@@ -72,7 +72,18 @@ jobs:
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }}
         asset_path: ./dnscontrol-Linux
-        asset_name: dnscontrol-Linux
+        asset_name: dnscontrol-Linux-x86_64
+        asset_content_type: application/octet-stream
+
+    - name: Upload dnscontrol-Linux (aarch64)
+      if: ${{ matrix.arch == 'ARM64' }}
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release.outputs.upload_url }}
+        asset_path: ./dnscontrol-Linux
+        asset_name: dnscontrol-Linux-aarch64
         asset_content_type: application/octet-stream
 
     - name: Upload dnscontrol.exe
@@ -126,6 +137,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }}
-        asset_path: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_arm64.deb
+        asset_path: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_aarch64.deb
         asset_name: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_aarch64.deb
         asset_content_type: application/vnd.debian.binary-package
