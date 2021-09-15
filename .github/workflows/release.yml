@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.arch }}
     strategy:
       matrix:
-        arch: ['X64', 'ARM64']
+        arch: ['x64', 'ARM64']
     steps:
 
     - name: Get release
