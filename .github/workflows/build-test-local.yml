@@ -6,10 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, x64]
+    runs-on: ${{ matrix.arch }}
     strategy:
       matrix:
-        arch: [x64, ARM64]
+        arch: ['x64', 'ARM64']
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2.3.4
