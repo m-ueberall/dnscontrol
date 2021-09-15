@@ -1,13 +1,13 @@
 ---
-name: build
+name: build-test-local
 
 on:
   workflow_dispatch:
-    branches: [ multiarch-builds ]
-  pull_request:
     branches: [ master ]
-  push:
-    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+#  push:
+#    branches: [ master ]
 
 jobs:
 
