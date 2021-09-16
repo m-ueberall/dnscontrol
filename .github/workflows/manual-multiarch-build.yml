@@ -1,5 +1,5 @@
 ---
-name: build-test-local
+name: manual-multiarch-build
 
 on:
   workflow_dispatch
