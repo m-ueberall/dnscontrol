@@ -47,11 +47,19 @@ jobs:
         fpm_args: 'usr/'
         fpm_opts: '-n dnscontrol -t rpm -s dir -v ${{ steps.versioner.outputs.RELEASE_VERSION }} --license "The MIT License (MIT)" --url "https://dnscontrol.org/" --description "DNSControl: Infrastructure as Code for DNS Zones"'
 
-    - name: Bundle DEB
+    - name: Bundle DEB (x86_64)
+      if: ${{ matrix.arch != 'ARM64' }}
       uses: bpicode/github-action-fpm@master
       with:
         fpm_args: 'usr/'
         fpm_opts: '-n dnscontrol -t deb -s dir -v ${{ steps.versioner.outputs.RELEASE_VERSION }} --license "The MIT License (MIT)" --url "https://dnscontrol.org/" --description "DNSControl: Infrastructure as Code for DNS Zones"'
+
+    - name: Bundle DEB (arm64)
+      if: ${{ matrix.arch == 'ARM64' }}
+      uses: bpicode/github-action-fpm@master
+      with:
+        fpm_args: 'usr/'
+        fpm_opts: '--architecture arm64 -n dnscontrol -t deb -s dir -v ${{ steps.versioner.outputs.RELEASE_VERSION }} --license "The MIT License (MIT)" --url "https://dnscontrol.org/" --description "DNSControl: Infrastructure as Code for DNS Zones"'
 
     - name: Upload dnscontrol-Darwin
       if: ${{ matrix.arch != 'ARM64' }}
@@ -137,6 +145,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_release.outputs.upload_url }}
-        asset_path: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_aarch64.deb
+        asset_path: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_arm64.deb
+>>>>>>> multiarch-builds
         asset_name: dnscontrol_${{ steps.versioner.outputs.RELEASE_VERSION }}_arm64.deb
         asset_content_type: application/vnd.debian.binary-package
