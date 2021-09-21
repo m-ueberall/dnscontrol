@@ -1,4 +1,5 @@
 #! /bin/bash
+if [[ "$1" == "--debug" ]]; then set -x; shift; fi
 
 #the below is supposed to handle both tags, branches when specified as argument:
 PACKAGE_VERSION="${1:-v0.0.0}"
